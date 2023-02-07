@@ -207,7 +207,9 @@ public class GlavniProzor extends javax.swing.JFrame {
             
             try {
                 File f = new File("log.txt");
-                FileWriter fw = new FileWriter(f,true);
+                FileWriter fw = new FileWriter(f,true);// Ovo true služi da se omogući dodavanje teksta na 
+                                                        // postojeći tekst. Bez toga bi se kod svakog upisa
+                                                        // stvarao novi fajl a uništavao stari.
                 fw.write(jTextField2.getText()+"\n");
                 fw.close();
             } catch (IOException ex) {
