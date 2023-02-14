@@ -5,9 +5,15 @@
  */
 package produzeniboravak.a5;
 
+import java.awt.BorderLayout;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -110,11 +116,29 @@ public class StatistikaProzor extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Connection c;
         try {
-            c = DriverManager.getConnection("");
+            c = DriverManager.getConnection("jdbc:ucanaccess://src\\resursi\\Dnevni boravak dece.accdb");
             Statement s = c.createStatement();
             ResultSet rs = s.executeQuery("SELECT Aktivnosti.Dan AS Dan, COUNT (Registar_Aktivnosti.DeteID) AS BrojDece FROM \n"
                     + "Registar_Aktivnosti INNER JOIN Aktivnosti ON Registar_Aktivnosti.AktivnostID=Aktivnosti.AktivnostID\n"
                     + "GROUP BY Aktivnosti.Dan");
+            DefaultTableModel dtm = new DefaultTableModel();
+            DefaultCategoryDataset dct = new DefaultCategoryDataset();
+            dtm.addColumn("Dan");
+            dtm.addColumn("Broj dece");
+            while(rs.next()){
+                Object[] red = new Object[2];
+                red[0]=rs.getString("Dan");
+                red[1]=rs.getInt("BrojDece");
+                dtm.addRow(red);
+                dct.addValue(rs.getInt("BrojDece"), "", rs.getString("Dan"));
+            }
+            jTable1.setModel(dtm);
+            JFreeChart chart = ChartFactory.createBarChart("Statistika","Dan","BrojDece",dct);
+            ChartPanel cp = new ChartPanel(chart); 
+            jPanel1.setLayout(new BorderLayout());
+            jPanel1.add(cp);
+            jPanel1.validate();
+            
         } catch (SQLException ex) {
             Logger.getLogger(StatistikaProzor.class.getName()).log(Level.SEVERE, null, ex);
         }
