@@ -194,6 +194,10 @@ public class GlavniProzor extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
+            if(jTextField1.getText()=="" || jTextField2.getText().equals("") 
+                    || jTextField3.getText().equals("") || jTextField4.getText().equals(""))
+                throw new PraznoPoljeException();
+            
             PreparedStatement ps = c.prepareStatement("INSERT INTO Aktivnosti (AktivnostID,NazivAktivnosti,Dan,Pocetak,Zavrsetak) VALUES (?,?,?,?,?)");
             ps.setInt(1, Integer.parseInt(jTextField1.getText()));
             ps.setString(2, jTextField2.getText());
@@ -223,6 +227,8 @@ public class GlavniProzor extends javax.swing.JFrame {
         }catch(IllegalArgumentException ex){
             Logger.getLogger(GlavniProzor.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex,"info",JOptionPane.ERROR_MESSAGE);
+        }catch(PraznoPoljeException ex){
+            JOptionPane.showMessageDialog(this, "Neko polje je ostalo prazno","greska",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
