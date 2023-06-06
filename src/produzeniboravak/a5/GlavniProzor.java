@@ -69,14 +69,19 @@ public class GlavniProzor extends javax.swing.JFrame {
         });
 
         jButton2.setText("O aplikaciji");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -106,6 +111,11 @@ public class GlavniProzor extends javax.swing.JFrame {
         });
 
         jButton4.setText("Izadji");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -228,7 +238,7 @@ public class GlavniProzor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Nespesan upis!","info",JOptionPane.ERROR_MESSAGE);
         }catch(IllegalArgumentException ex){
             Logger.getLogger(GlavniProzor.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex,"info",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vreme mora biti u formatu hh:mm:ss","info",JOptionPane.WARNING_MESSAGE);
         }catch(PraznoPoljeException ex){
             JOptionPane.showMessageDialog(this, "Neko polje je ostalo prazno","greska",JOptionPane.ERROR_MESSAGE);
         }
@@ -237,6 +247,14 @@ public class GlavniProzor extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new StatistikaProzor().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new OAplikacijiProzor().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
