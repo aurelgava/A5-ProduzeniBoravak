@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -128,6 +129,11 @@ public class GlavniProzor extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -255,6 +261,31 @@ public class GlavniProzor extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new OAplikacijiProzor().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+       int ID = (int) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
+        String naziv = (String) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1);
+        String dan = (String) jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 2);
+        LocalTime time1 = LocalTime.parse((jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 3)).toString());
+        LocalTime time2 = LocalTime.parse((jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 4)).toString());
+        int Hour1 = time1.getHour();
+        int Hour2 = time2.getHour();
+        int Minute1 = time1.getMinute();
+        int Minute2 = time2.getMinute();
+        String pocetak = Integer.toString(Hour1) + ':' + Integer.toString(Minute1);
+        String zavrsetak = Integer.toString(Hour2) + ':' + Integer.toString(Minute2);        
+        
+        jTextField1.setText(Integer.toString(ID));
+        jTextField2.setText(naziv);
+        //jComboBox1.addItem(dan);
+        for(int i=0; i<jComboBox1.getItemCount(); i++){
+            if( ((String)jComboBox1.getItemAt(i)).equals(dan) ){
+                jComboBox1.setSelectedIndex(i);
+            }
+        }
+        jTextField3.setText(pocetak);
+        jTextField4.setText(zavrsetak);
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
